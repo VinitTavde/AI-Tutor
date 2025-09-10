@@ -35,6 +35,8 @@ app.add_middleware(
 # Initialize services
 qdrant_manager = QdrantManager()
 document_processor = DocumentProcessor()
+vibevoice_service = VibeVoiceService()
+
 
 # Try to use OpenAI first, fall back to local model if API key not available
 try:
@@ -57,7 +59,7 @@ except Exception as e:
 
 # Initialize VibeVoice Service
 try:
-    vibevoice_service = VibeVoiceService()
+    
     if vibevoice_service.is_available():
         logger.info("VibeVoice service initialized successfully")
     else:
