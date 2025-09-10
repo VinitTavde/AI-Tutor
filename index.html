@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Conversational Assistant</title>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 20px auto; }
+    #chat { border: 1px solid #ddd; padding: 10px; height: 400px; overflow-y: auto; }
+    .user { text-align: right; background: #e0f7fa; margin: 5px; padding: 8px; border-radius: 5px; }
+    .bot { text-align: left; background: #f1f8e9; margin: 5px; padding: 8px; border-radius: 5px; }
+    button { margin: 10px; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>🎙️ Talk to Gemini</h2>
+  <div id="chat"></div>
+  <button id="startBtn" onclick="start()">Start</button>
+  <button id="stopBtn" onclick="stop()" disabled>Stop</button>
+  <audio id="player" controls autoplay></audio>
+
+  <script>
+    const socket = io();
+    let mediaRecorder;
+    let chunks = [];
+
+    const chat = document.getElementById("chat");
+
+    function addMsg(text, cls) {
+      const d = document.createElement("div");
+      d.className = cls;
+      d.innerText = text;
+      chat.appendChild(d);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function start() {
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        mediaRecorder = new MediaRecorder(stream);
+        chunks = [];
+        mediaRecorder.start();
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        document.getElementById("startBtn").disabled = true;
+        document.getElementById("stopBtn").disabled = false;
+      });
+    }
+
+    function stop() {
+      mediaRecorder.stop();
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: "audio/wav" });
+        blob.arrayBuffer().then(buf => {
+          socket.emit("audio_blob", new Uint8Array(buf));
+        });
+        addMsg("Processing...", "bot");
+        document.getElementById("startBtn").disabled = false;
+        document.getElementById("stopBtn").disabled = true;
+      };
+    }
+
+    socket.on("transcript", data => {
+      addMsg(data.text, "user");
+    });
+
+    socket.on("assistant_reply", data => {
+      addMsg(data.text, "bot");
+      document.getElementById("player").src = "/audio/" + data.audio_file;
+    });
+  </script>
+</body>
+</html>

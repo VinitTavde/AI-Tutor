@@ -1,0 +1,37 @@
+{
+    "522c75eb-fd7d-46ad-a253-de5b8da6c096": {
+        "community_id": "522c75eb-fd7d-46ad-a253-de5b8da6c096",
+        "name": "Test_community",
+        "description": "Test",
+        "owner_id": "7d37f5d5-9d09-4e3c-bc22-dc2f631c6375",
+        "members": [
+            "7d37f5d5-9d09-4e3c-bc22-dc2f631c6375",
+            "f7c3e16f-16d0-45d1-bd01-5e3a443945b3"
+        ],
+        "is_public": true,
+        "created_at": "2025-07-08T11:27:02.624284"
+    },
+    "c4efc8a7-09f9-4d9a-bff8-0d71dd0293f8": {
+        "community_id": "c4efc8a7-09f9-4d9a-bff8-0d71dd0293f8",
+        "name": "test2",
+        "description": "test12",
+        "owner_id": "f7c3e16f-16d0-45d1-bd01-5e3a443945b3",
+        "members": [
+            "f7c3e16f-16d0-45d1-bd01-5e3a443945b3"
+        ],
+        "is_public": false,
+        "created_at": "2025-07-08T11:33:36.964904"
+    },
+    "7070048e-6650-4103-81b3-63fdb477a858": {
+        "community_id": "7070048e-6650-4103-81b3-63fdb477a858",
+        "name": "python",
+        "description": "learning python",
+        "owner_id": "7d37f5d5-9d09-4e3c-bc22-dc2f631c6375",
+        "members": [
+            "7d37f5d5-9d09-4e3c-bc22-dc2f631c6375",
+            "f7c3e16f-16d0-45d1-bd01-5e3a443945b3"
+        ],
+        "is_public": true,
+        "created_at": "2025-07-08T14:48:39.887381"
+    }
+}

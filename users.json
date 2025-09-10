@@ -1,0 +1,243 @@
+{
+    "45655": {
+        "stats": {
+            "uploads": 1,
+            "questions": 0,
+            "summaries": 1,
+            "quizzes_taken": 0,
+            "topics_generated": 0
+        },
+        "badges": [
+            {
+                "id": "first_upload",
+                "name": "First Step",
+                "description": "Uploaded your first document.",
+                "icon": "\ud83e\udd47",
+                "awarded_at": "2025-07-07T16:50:39.323652"
+            },
+            {
+                "id": "first_summary",
+                "name": "Summarizer",
+                "description": "Generated your first summary.",
+                "icon": "\ud83d\udcdd",
+                "awarded_at": "2025-07-07T16:51:02.601783"
+            }
+        ]
+    },
+    "7d37f5d5-9d09-4e3c-bc22-dc2f631c6375": {
+        "username": "vinit",
+        "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+        "stats": {
+            "uploads": 18,
+            "questions": 48,
+            "summaries": 32,
+            "quizzes_taken": 7,
+            "topics_generated": 2,
+            "flashcards_generated": 8,
+            "mindmaps_generated": 3
+        },
+        "badges": [
+            {
+                "id": "flashcard_fan",
+                "name": "Flashcard Fan",
+                "description": "Generated your first set of flashcards.",
+                "icon": "\ud83e\udde0",
+                "awarded_at": "2025-07-08T10:18:44.756161"
+            },
+            {
+                "id": "quiz_taker",
+                "name": "Quiz Taker",
+                "description": "Took your first quiz.",
+                "icon": "\ud83c\udfaf",
+                "awarded_at": "2025-07-08T10:18:59.405404"
+            },
+            {
+                "id": "first_summary",
+                "name": "Summarizer",
+                "description": "Generated your first summary.",
+                "icon": "\ud83d\udcdd",
+                "awarded_at": "2025-07-08T10:27:17.486285"
+            },
+            {
+                "id": "first_upload",
+                "name": "First Step",
+                "description": "Uploaded your first document.",
+                "icon": "\ud83d\ude80",
+                "awarded_at": "2025-07-08T10:28:39.741892"
+            },
+            {
+                "id": "first_question",
+                "name": "Curious Mind",
+                "description": "Asked your first question.",
+                "icon": "\u2753",
+                "awarded_at": "2025-07-11T10:00:10.689769"
+            },
+            {
+                "id": "doc_novice",
+                "name": "Document Novice",
+                "description": "Upload 5 documents.",
+                "icon": "\ud83d\udcc4",
+                "awarded_at": "2025-07-11T14:15:50.315437"
+            }
+        ]
+    },
+    "f7c3e16f-16d0-45d1-bd01-5e3a443945b3": {
+        "username": "vinit1",
+        "password": "abe6c5838bf22b825feb81d89e93c837871fcef0dbc4cd106fe1d4fb19f1d335",
+        "stats": {
+            "uploads": 2,
+            "questions": 0,
+            "summaries": 0,
+            "quizzes_taken": 0,
+            "topics_generated": 0
+        },
+        "badges": [
+            {
+                "id": "first_upload",
+                "name": "First Step",
+                "description": "Uploaded your first document.",
+                "icon": "\ud83d\ude80",
+                "awarded_at": "2025-07-11T12:48:07.418729"
+            }
+        ]
+    },
+    "e857bbfc-5b06-4153-aad4-e0cc51e38552": {
+        "username": "vinit2",
+        "password": "b3a8e0e1f9ab1bfe3a36f231f676f78bb30a519d2b21e6c530c0eee8ebb4a5d0",
+        "stats": {
+            "uploads": 1,
+            "questions": 0,
+            "summaries": 2,
+            "quizzes_taken": 1,
+            "topics_generated": 0,
+            "flashcards_generated": 1
+        },
+        "badges": [
+            {
+                "id": "first_upload",
+                "name": "First Step",
+                "description": "Uploaded your first document.",
+                "icon": "\ud83d\ude80",
+                "awarded_at": "2025-07-08T10:02:07.805921"
+            },
+            {
+                "id": "first_summary",
+                "name": "Summarizer",
+                "description": "Generated your first summary.",
+                "icon": "\ud83d\udcdd",
+                "awarded_at": "2025-07-08T10:02:07.805921"
+            },
+            {
+                "id": "quiz_taker",
+                "name": "Quiz Taker",
+                "description": "Took your first quiz.",
+                "icon": "\ud83c\udfaf",
+                "awarded_at": "2025-07-08T10:02:07.805921"
+            },
+            {
+                "id": "flashcard_fan",
+                "name": "Flashcard Fan",
+                "description": "Generated your first set of flashcards.",
+                "icon": "\ud83e\udde0",
+                "awarded_at": "2025-07-08T10:02:07.805921"
+            }
+        ]
+    },
+    "b652a584-d7b4-4f9d-aacd-b81d51e654fe": {
+        "username": "Divax",
+        "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+        "stats": {
+            "uploads": 1,
+            "questions": 2,
+            "summaries": 1,
+            "quizzes_taken": 0,
+            "topics_generated": 1,
+            "flashcards_generated": 1
+        },
+        "badges": [
+            {
+                "id": "first_question",
+                "name": "Curious Mind",
+                "description": "Asked your first question.",
+                "icon": "\u2753",
+                "awarded_at": "2025-07-08T10:04:42.941068"
+            },
+            {
+                "id": "first_summary",
+                "name": "Summarizer",
+                "description": "Generated your first summary.",
+                "icon": "\ud83d\udcdd",
+                "awarded_at": "2025-07-08T10:06:42.549514"
+            },
+            {
+                "id": "flashcard_fan",
+                "name": "Flashcard Fan",
+                "description": "Generated your first set of flashcards.",
+                "icon": "\ud83e\udde0",
+                "awarded_at": "2025-07-08T10:08:18.675677"
+            },
+            {
+                "id": "first_upload",
+                "name": "First Step",
+                "description": "Uploaded your first document.",
+                "icon": "\ud83d\ude80",
+                "awarded_at": "2025-07-08T10:08:33.551793"
+            }
+        ]
+    },
+    "5046ac67-0a2b-4885-b674-1de3a29396a2": {
+        "username": "tavde",
+        "password": "75f7313c20144e39edcf57a14733d074aee0c482320d5178ee0ef2f2608c2996",
+        "stats": {
+            "uploads": 3,
+            "questions": 10,
+            "summaries": 3,
+            "quizzes_taken": 0,
+            "topics_generated": 1,
+            "flashcards_generated": 1
+        },
+        "badges": [
+            {
+                "id": "first_upload",
+                "name": "First Step",
+                "description": "Uploaded your first document.",
+                "icon": "\ud83d\ude80",
+                "awarded_at": "2025-07-11T11:05:00.187909"
+            },
+            {
+                "id": "flashcard_fan",
+                "name": "Flashcard Fan",
+                "description": "Generated your first set of flashcards.",
+                "icon": "\ud83e\udde0",
+                "awarded_at": "2025-07-11T11:43:09.895297"
+            },
+            {
+                "id": "first_summary",
+                "name": "Summarizer",
+                "description": "Generated your first summary.",
+                "icon": "\ud83d\udcdd",
+                "awarded_at": "2025-07-11T12:25:06.733852"
+            },
+            {
+                "id": "first_question",
+                "name": "Curious Mind",
+                "description": "Asked your first question.",
+                "icon": "\u2753",
+                "awarded_at": "2025-07-12T10:29:32.125687"
+            }
+        ]
+    },
+    "de539dd3-3be8-4c58-a123-15be160fb8f4": {
+        "username": "vinit12",
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "stats": {
+            "uploads": 7,
+            "questions": 14,
+            "summaries": 21,
+            "quizzes_taken": 22,
+            "topics_generated": 4,
+            "flashcards_generated": 5
+        },
+        "badges": []
+    }
+}

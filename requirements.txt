@@ -1,0 +1,23 @@
+fastapi
+uvicorn
+gradio
+qdrant-client
+openai
+python-dotenv
+PyPDF2
+python-docx
+python-multipart
+requests
+numpy
+sentence-transformers
+langchain-text-splitters
+google-generativeai
+langchain
+langchain-google-genai
+# VibeVoice dependencies
+torch
+librosa
+soundfile
+transformers
+accelerate
+diffusers
