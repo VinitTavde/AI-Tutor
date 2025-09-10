@@ -693,24 +693,24 @@ async def generate_voice_podcast(request: VoicePodcastRequest):
 
         # Step 2: Generate voice audio
         logger.info("Converting script to voice podcast")
-        audio_array, generation_log = vibevoice_service.generate_voice_podcast(
+        audio_file_path, generation_log = vibevoice_service.generate_voice_podcast(
             script=script,
             speaker1=request.speaker1,
             speaker2=request.speaker2,
             cfg_scale=request.cfg_scale
         )
 
-        if audio_array is None:
+        if audio_file_path is None:
             raise HTTPException(status_code=500, detail=f"Voice generation failed: {generation_log}")
 
-        # Step 3: Save audio and return response
-        sample_rate = 24000
-        duration = len(audio_array) / sample_rate
-        
-        # Audio file path is already saved by the VibeVoice service
-        output_dir = os.path.join(os.path.dirname(__file__), "outputs")
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        audio_file_path = os.path.join(output_dir, f"voice_podcast_{timestamp}.wav")
+        # Step 3: Calculate duration from saved file
+        try:
+            import soundfile as sf
+            audio_data, sample_rate = sf.read(audio_file_path)
+            duration = len(audio_data) / sample_rate
+        except Exception as e:
+            logger.warning(f"Could not read audio file for duration: {e}")
+            duration = 0.0
 
         return VoicePodcastResponse(
             script=script,

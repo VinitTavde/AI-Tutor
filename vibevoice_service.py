@@ -82,24 +82,31 @@ class VibeVoiceService:
             
             model_path = "microsoft/VibeVoice-1.5B"
             
-            logger.info(f"Loading VibeVoice model from {model_path}")
+            logger.info(f"Loading VibeVoice processor from {model_path}")
             self.processor = VibeVoiceProcessor.from_pretrained(model_path)
+            logger.info("VibeVoice processor loaded successfully")
+            
+            logger.info(f"Loading VibeVoice model from {model_path}")
             self.model = VibeVoiceForConditionalGenerationInference.from_pretrained(
                 model_path, 
                 torch_dtype=torch.bfloat16
             )
+            logger.info("VibeVoice model loaded successfully (on CPU initially)")
             
-            # Move to device
-            self.model = self.model.to(self.device)
+            # Keep on CPU initially, move to device only during generation
+            # This matches the pattern in the original podcast app
             self.model.eval()
             self.model.set_ddpm_inference_steps(num_steps=self.inference_steps)
             
-            logger.info(f"VibeVoice model loaded successfully on {self.device}")
+            logger.info(f"VibeVoice service initialized successfully")
             
         except Exception as e:
             logger.error(f"Failed to load VibeVoice components: {str(e)}")
+            import traceback
+            logger.error(f"Full traceback: {traceback.format_exc()}")
             self.model = None
             self.processor = None
+            raise  # Re-raise to trigger fallback to mock service
         finally:
             # Always change back to original directory
             os.chdir(original_cwd)
@@ -156,7 +163,7 @@ class VibeVoiceService:
     
     @torch.inference_mode()
     def generate_voice_podcast(self, script: str, speaker1: str = None, speaker2: str = None, 
-                             cfg_scale: float = 1.3) -> Tuple[Optional[np.ndarray], str]:
+                             cfg_scale: float = 1.3) -> Tuple[Optional[str], str]:
         """
         Generate voice podcast from script
         
@@ -167,12 +174,16 @@ class VibeVoiceService:
             cfg_scale: CFG scale for generation
             
         Returns:
-            Tuple of (audio_array, log_message)
+            Tuple of (audio_file_path, log_message)
         """
         if not self.model or not self.processor:
             return None, "❌ VibeVoice model not available. Please check installation."
         
         try:
+            # Move model to device for generation
+            logger.info(f"Moving VibeVoice model to {self.device} for generation")
+            self.model = self.model.to(self.device)
+            
             # Use default speakers if not specified
             if not speaker1 or not speaker2:
                 default_speaker1, default_speaker2 = self.get_default_speakers()
@@ -264,7 +275,7 @@ class VibeVoiceService:
             log += f"🎵 Duration: {duration:.2f} seconds\n"
             log += f"💾 Saved to: {file_path}\n"
             
-            return audio, log
+            return file_path, log
             
         except Exception as e:
             logger.error(f"Error generating voice podcast: {str(e)}")
