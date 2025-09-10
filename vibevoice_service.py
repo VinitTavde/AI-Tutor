@@ -16,28 +16,57 @@ class VibeVoiceService:
     Integration service for VibeVoice podcast generation in AI_Tutor
     """
     
-    def __init__(self, podcast_path: str = "f:/Kreative-Space/podcast"):
+    def __init__(self, podcast_path: str = None):
         """
         Initialize VibeVoice service
         
         Args:
             podcast_path: Path to the podcast project directory
         """
-        self.podcast_path = podcast_path
+        # Auto-detect podcast path or use default
+        if podcast_path is None:
+            # Try different possible paths
+            possible_paths = [
+                "f:/Kreative-Space/podcast",  # Local Windows
+                "/content/podcast",           # Google Colab
+                "./podcast",                  # Relative path
+                "../podcast",                 # Parent directory
+                os.path.join(os.getcwd(), "podcast")  # Current directory
+            ]
+            
+            self.podcast_path = None
+            for path in possible_paths:
+                if os.path.exists(path):
+                    self.podcast_path = path
+                    break
+            
+            if self.podcast_path is None:
+                logger.warning("Podcast directory not found. VibeVoice service will be disabled.")
+                self.podcast_path = "/tmp/podcast_fallback"  # Fallback path
+        else:
+            self.podcast_path = podcast_path
+        
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.inference_steps = 5
         
         # Add podcast path to sys.path for imports
-        if podcast_path not in sys.path:
-            sys.path.append(podcast_path)
+        if self.podcast_path and os.path.exists(self.podcast_path) and self.podcast_path not in sys.path:
+            sys.path.append(self.podcast_path)
         
         # Initialize VibeVoice components
         self.model = None
         self.processor = None
         self.available_voices = {}
+        self.service_available = False
         
-        self._load_vibevoice_components()
-        self._setup_voice_presets()
+        try:
+            self._load_vibevoice_components()
+            self._setup_voice_presets()
+            self.service_available = True
+            logger.info("VibeVoice service initialized successfully")
+        except Exception as e:
+            logger.warning(f"VibeVoice service not available: {e}")
+            self.service_available = False
     
     def _load_vibevoice_components(self):
         """Load VibeVoice model and processor"""
@@ -234,4 +263,4 @@ class VibeVoiceService:
     
     def is_available(self) -> bool:
         """Check if VibeVoice service is available"""
-        return self.model is not None and self.processor is not None
+        return self.service_available and self.model is not None and self.processor is not None

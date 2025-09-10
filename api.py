@@ -58,10 +58,20 @@ except Exception as e:
 # Initialize VibeVoice Service
 try:
     vibevoice_service = VibeVoiceService()
-    logger.info("VibeVoice service initialized successfully")
+    if vibevoice_service.is_available():
+        logger.info("VibeVoice service initialized successfully")
+    else:
+        raise Exception("VibeVoice service not available")
 except Exception as e:
     logger.warning(f"Failed to initialize VibeVoice service: {e}")
-    vibevoice_service = None
+    logger.info("Attempting to use mock VibeVoice service for testing...")
+    try:
+        from mock_vibevoice_service import MockVibeVoiceService
+        vibevoice_service = MockVibeVoiceService()
+        logger.info("Mock VibeVoice service initialized successfully")
+    except Exception as mock_error:
+        logger.error(f"Failed to initialize mock VibeVoice service: {mock_error}")
+        vibevoice_service = None
 
 class DocumentResponse(BaseModel):
     document_id: str
@@ -663,7 +673,10 @@ async def generate_voice_podcast(request: VoicePodcastRequest):
             raise HTTPException(status_code=503, detail="Chatbot service is not available")
         
         if not vibevoice_service or not vibevoice_service.is_available():
-            raise HTTPException(status_code=503, detail="VibeVoice service is not available")
+            raise HTTPException(
+                status_code=503, 
+                detail="VibeVoice service is not available. This feature requires the VibeVoice model and voice samples to be installed. Please check the logs for more details."
+            )
 
         # Step 1: Generate the script
         logger.info(f"Generating podcast script for document: {request.document_id}")

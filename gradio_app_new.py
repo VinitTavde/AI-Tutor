@@ -2547,8 +2547,8 @@ def create_main_app():
                     "document_id": doc_id,
                     "user_id": user_id,
                     "page_numbers": page_numbers,
-                    "speaker1": None,  # Use default speakers
-                    "speaker2": None,
+                    "speaker1": "en-Alice_woman",  # Default female speaker
+                    "speaker2": "en-Carter_man",   # Default male speaker
                     "cfg_scale": 1.3
                 }
                 
