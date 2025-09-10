@@ -104,8 +104,8 @@ def update_user_stat(user_id: str, stat_name: str, increment: int = 1):
 
 
 # FastAPI backend URL
-# BACKEND_URL = "http://localhost:8000"
-BACKEND_URL = "https://8ab1453add14.ngrok-free.app"
+BACKEND_URL = "http://localhost:8000"
+# BACKEND_URL = "https://8ab1453add14.ngrok-free.app"
 
 # Global state to store uploaded documents and current session
 session_state = {
