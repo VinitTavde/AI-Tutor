@@ -134,7 +134,7 @@ def upload_and_process_document(file, user_id: str, chunk_size: int = 1000, over
         }
         
         # Send request to backend
-        response = requests.post(f"{BACKEND_URL}/upload-document", files=files, data=data)
+        response = requests.post(f"{BACKEND_URL}/upload-document", files=files, data=data, timeout=300)
         files["file"][1].close()  # Close the file
         
         if response.status_code == 200:
@@ -182,7 +182,7 @@ def process_youtube_link(url: str, user_id: str, chunk_size: int, overlap: int, 
         }
         
         # Send request to backend
-        response = requests.post(f"{BACKEND_URL}/process-url", data=data)
+        response = requests.post(f"{BACKEND_URL}/process-url", data=data, timeout=300)
         
         if response.status_code == 200:
             result = response.json()
@@ -275,7 +275,7 @@ def send_message(message: str, history: List[List[str]], page_mode: str = "all",
     
     full_response = ""
     try:
-        with requests.post(f"{BACKEND_URL}/chat", json=chat_data, stream=True) as response:
+        with requests.post(f"{BACKEND_URL}/chat", json=chat_data, stream=True, timeout=300) as response:
             if response.status_code == 200:
                 for token_chunk in response.iter_content(chunk_size=128):
                     if token_chunk:
@@ -663,7 +663,7 @@ def create_upload_interface():
             )
             
             try:
-                response = requests.post(f"{BACKEND_URL}/generate-from-topic", json={"topic": topic, "user_id": user_id})
+                response = requests.post(f"{BACKEND_URL}/generate-from-topic", json={"topic": topic, "user_id": user_id}, timeout=300)
                 if response.status_code == 200:
                     result = response.json()
                     doc_info = {
@@ -2244,7 +2244,8 @@ def create_main_app():
                 with requests.post(
                     f"{BACKEND_URL}/summarize", 
                     json=request_data, 
-                    stream=True
+                    stream=True,
+                    timeout=300
                 ) as r:
                     r.raise_for_status()
                     for chunk in r.iter_content(chunk_size=512):
@@ -2302,7 +2303,8 @@ def create_main_app():
                 with requests.post(
                     f"{BACKEND_URL}/flashcards", 
                     json=request_data,
-                    stream=True
+                    stream=True,
+                    timeout=300
                 ) as r:
                     r.raise_for_status()
                     for chunk in r.iter_content(chunk_size=512):
@@ -2390,7 +2392,8 @@ def create_main_app():
                 with requests.post(
                     f"{BACKEND_URL}/quiz", 
                     json=request_data,
-                    stream=True
+                    stream=True,
+                    timeout=300
                 ) as r:
                     r.raise_for_status()
                     for chunk in r.iter_content(chunk_size=512):
@@ -2504,7 +2507,8 @@ def create_main_app():
                 with requests.post(
                     f"{BACKEND_URL}/podcast", 
                     json=request_data, 
-                    stream=True
+                    stream=True,
+                    timeout=300
                 ) as r:
                     r.raise_for_status()
                     for chunk in r.iter_content(chunk_size=512):
@@ -2594,4 +2598,4 @@ def create_main_app():
 
 if __name__ == "__main__":
     main_app = create_main_app()
-    main_app.launch(debug=True,share=True) 
+    main_app.queue(max_size=50, default_concurrency_limit=10).launch(debug=True, share=True) 
