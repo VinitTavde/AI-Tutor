@@ -2524,7 +2524,7 @@ def create_main_app():
             user_id = session_state.get("current_user_id")
             doc_id = session_state.get("current_document_id")
             if not user_id or not doc_id:
-                return None, "Please select a document first.", "❌ Error: No document selected", False
+                return None, "Please select a document first.", gr.update(visible=False)
 
             # Handle page filtering
             page_numbers = None
@@ -2533,7 +2533,7 @@ def create_main_app():
                 if doc_info and supports_page_filtering(doc_info.get('file_name', '')):
                     page_numbers = parse_page_numbers(page_numbers_input)
                     if not page_numbers:
-                        return None, "Error: Invalid page numbers format. Use format like '1,3,5-7'.", "❌ Error: Invalid page format", False
+                        return None, "Error: Invalid page numbers format. Use format like '1,3,5-7'.", gr.update(visible=False)
 
             page_info = ""
             if page_numbers:
@@ -2571,34 +2571,22 @@ def create_main_app():
                         audio_output = None
                     
                     success_log = result.get("log", "✅ Voice podcast generated successfully!")
-                    return audio_output, success_log, success_log, True
+                    return audio_output, success_log, gr.update(visible=True)
                 else:
                     error_msg = f"❌ Voice generation failed: {result.get('log', 'Unknown error')}"
-                    return None, error_msg, error_msg, False
+                    return None, error_msg, gr.update(visible=True)
 
             except requests.exceptions.Timeout:
                 error_msg = "❌ Voice generation timed out. Please try again with a shorter document."
-                return None, error_msg, error_msg, False
+                return None, error_msg, gr.update(visible=True)
             except Exception as e:
                 error_msg = f"❌ Error generating voice podcast: {str(e)}"
-                return None, error_msg, error_msg, False
-
-        def update_voice_podcast_output(audio, log, log_display, success):
-            # Show/hide the voice podcast output row based on success
-            return {
-                voice_podcast_output_row: gr.update(visible=success),
-                voice_podcast_audio: audio,
-                voice_podcast_log: log_display
-            }
+                return None, error_msg, gr.update(visible=True)
 
         voice_podcast_btn.click(
             handle_voice_podcast,
             inputs=[page_mode, page_numbers_input],
-            outputs=[voice_podcast_audio, voice_podcast_log, voice_podcast_log, voice_podcast_output_row]
-        ).then(
-            lambda audio, log, log_display, success: gr.update(visible=success),
-            inputs=[voice_podcast_audio, voice_podcast_log, voice_podcast_log, voice_podcast_output_row],
-            outputs=voice_podcast_output_row
+            outputs=[voice_podcast_audio, voice_podcast_log, voice_podcast_output_row]
         )
 
     return demo
