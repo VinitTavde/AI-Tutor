@@ -70,7 +70,13 @@ class VibeVoiceService:
     
     def _load_vibevoice_components(self):
         """Load VibeVoice model and processor"""
+        original_cwd = os.getcwd()
         try:
+            # Change to podcast directory for imports
+            if self.podcast_path and os.path.exists(self.podcast_path):
+                os.chdir(self.podcast_path)
+                logger.info(f"Changed to podcast directory: {self.podcast_path}")
+            
             from modular.modeling_vibevoice_inference import VibeVoiceForConditionalGenerationInference
             from processor.vibevoice_processor import VibeVoiceProcessor
             
@@ -94,6 +100,9 @@ class VibeVoiceService:
             logger.error(f"Failed to load VibeVoice components: {str(e)}")
             self.model = None
             self.processor = None
+        finally:
+            # Always change back to original directory
+            os.chdir(original_cwd)
     
     def _setup_voice_presets(self):
         """Setup available voice presets from the voices directory"""

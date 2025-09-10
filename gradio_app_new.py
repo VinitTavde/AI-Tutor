@@ -104,7 +104,8 @@ def update_user_stat(user_id: str, stat_name: str, increment: int = 1):
 
 
 # FastAPI backend URL
-BACKEND_URL = "http://localhost:8000"
+# BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = "https://8ab1453add14.ngrok-free.app"
 
 # Global state to store uploaded documents and current session
 session_state = {
@@ -2555,7 +2556,7 @@ def create_main_app():
                 response = requests.post(
                     f"{BACKEND_URL}/voice-podcast",
                     json=request_data,
-                    timeout=300  # 5 minute timeout for voice generation
+                    timeout=900  # 5 minute timeout for voice generation
                 )
                 response.raise_for_status()
                 result = response.json()
