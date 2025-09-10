@@ -19,7 +19,6 @@ ENV/
 # Distribution / packaging
 .Python
 build/
-dist/
 downloads/
 eggs/
 lib/
